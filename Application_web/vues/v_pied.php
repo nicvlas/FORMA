@@ -21,8 +21,8 @@
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="modele/progressbar.js"></script>
-    <script src="modele/jquerylib.js" ></script>
-    <script src="modele/bootstrap.js"></script>
+    <script src="style/progressbar.js"></script>
+    <script src="style/jquerylib.js" ></script>
+    <script src="style/bootstrap.js"></script>
   </body>
 </html>

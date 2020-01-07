@@ -1,28 +1,14 @@
 <?php
-include("vues/v_entete.php");
 session_start();
+include("vues/v_entete.php");
 require_once("modele/class.pdoForma.inc.php");
 include("vues/v_bandeau.php") ;
 
-//$_SESSION['idUtil']=1;
-//initialisation de variables de session pour la consultation des formations
 
-
-$_SESSION['connexion']=0;//pas connecté faux
-
-
-
-
-
-if ( (isset($_SESSION['dom'])) && (isset($_SESSION['form'])) && (isset($_SESSION['session'])) ){
-$_SESSION['dom'];
-$_SESSION['form'];
-$_SESSION['session'];
-}
-if(!isset($_REQUEST['uc']))
-     $uc = 'accueil';
+if(isset($_REQUEST['uc']))
+	$uc = $_REQUEST['uc']; 
 else
-    $uc = $_REQUEST['uc'];
+	$uc = 'accueil';
    
 
 /* Création d'une instance d'accès à la base de données */

@@ -5,11 +5,12 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="modele/bootstrap.css">
+    <!-- Bootstrap CSS + FA CSS -->
+    <link rel="stylesheet" href="style/bootstrap.css">
+    <link rel="stylesheet" href="style/FA/css/all.css">
 
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="modele/custom.css">
+    <link rel="stylesheet" href="style/custom.css">
 
     <!-- Icon -->
     <link rel="shortcut icon" type="image/x-icon" href="../images/icone.ico">
