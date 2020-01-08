@@ -264,24 +264,43 @@ class PdoForma
 
 	public function verifConnexion($login, $mdp)
 	{
-		$req = "SELECT Login, Mdp
-				FROM utilisateur
-				WHERE LOGIN='$login'
-				AND mdp='$mdp';";
+		$success = "no";
+		$req = "SELECT password
+				FROM login
+				WHERE login='$login';";
+
 		$res = PdoForma::$monPdo->query($req);
-		$lesLignes = $res->fetchAll();
-		return $lesLignes;
+		$ligne = $res->fetch();
+		$compare_mdp = $ligne['password'];
+
+		if($compare_mdp==$mdp){
+			$success="yes";
+		}
+		return $success;
 	}
 
-	public function getType($login, $mdp)
+	public function getNumUtil($login)
+	{
+		$req = "SELECT id_util
+				FROM login
+				WHERE login ='$login';";
+		$res = PdoForma::$monPdo->query($req);
+		$ligne = $res->fetch();
+		$numUtil = $ligne['id_util'];
+
+		return $numUtil;
+	}
+
+	public function getTypeUtil($numUtil)
 	{
 		$req = "SELECT U_STATUT
 				FROM utilisateur
-				WHERE login='$login'
-				AND mdp='$mdp';";
+				WHERE NO_UTILISATEUR='$numUtil';";
 		$res = PdoForma::$monPdo->query($req);
-		$lesLignes = $res->fetchAll();
-		return $lesLignes;
+		$ligne = $res->fetch();
+		$typeUtil = $ligne['U_STATUT'];
+		
+		return $typeUtil;
 	}
 }
 ?>

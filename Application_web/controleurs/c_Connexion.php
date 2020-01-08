@@ -1,42 +1,52 @@
 <div class="container">
          <br><br><br><br>
-    </div>
-    <div class="jumbotron container text-left text-light custom-jumbo">
+</div>
 <?php
 $action = $_REQUEST['action'];
 switch($action)
 {
-    case 'seconnecter':
+    case 'connexion':
     {
         include("vues/v_connexion.php");
         break;
     }
-    case 'verifierConnexion':
+    case 'authentification':
     {
-        $login = $_POST['login'];
+        $login = $_POST['identifiant'];
         $mdp = $_POST['mdp'];
 
         
-        $res = $pdo->verifConnexion($login, $mdp);
-        $_SESSION['typeuti']=$pdo->getType($login, $mdp);
+        $success = $pdo->verifConnexion($login, $mdp);
 
-        if ($res != null)
+        //$_SESSION['typeuti'] = $pdo->getTypeUtil($login, $mdp);
+
+        if ($success == "yes")
         {
-            $_SESSION['connexion'] = 1;
-            echo "Bienvenue !";
+            $_SESSION['logged'] = $pdo->getNumUtil($login);
+            $_SESSION['type_util'] = $pdo->getTypeUtil($_SESSION['logged']);
+
+            $message = "Bienvenue !";
+            include("vues/v_message.php");
+            header('Location:index.php');
         }
         else
         {
-            //redirection
+            $message = "Identifiant ou mot de passe incorrect.";
+
+            include("vues/v_message.php");
+            include("vues/v_connexion.php");
         }
         break;
     }
-    case 'déco':
+    case 'logout':
     {
         session_unset();
         session_destroy();
+
+        $message = "Vous avez été déconnecté avec succès !";
+        include("vues/v_message.php");
+        header('Location:index.php');
         break;
     }        
 }
 ?>
-</div>

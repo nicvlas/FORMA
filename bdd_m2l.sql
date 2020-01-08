@@ -3,9 +3,9 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  127.0.0.1
--- Généré le :  Mer 18 Décembre 2019 à 22:19
+-- Généré le :  Mer 08 Janvier 2020 à 00:21
 -- Version du serveur :  5.6.15-log
--- Version de PHP :  5.4.24
+-- Version de PHP :  5.5.8
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -275,6 +275,31 @@ INSERT INTO `lieu` (`CODE_LIEU`, `L_ADRESSE`, `L_CP`, `L_VILLE`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `login`
+--
+
+CREATE TABLE IF NOT EXISTS `login` (
+  `id_util` char(3) NOT NULL DEFAULT '',
+  `login` varchar(32) NOT NULL,
+  `password` varchar(32) NOT NULL,
+  PRIMARY KEY (`id_util`),
+  KEY `id_util` (`id_util`),
+  KEY `id_util_2` (`id_util`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Contenu de la table `login`
+--
+
+INSERT INTO `login` (`id_util`, `login`, `password`) VALUES
+('1', 'nico31', 'btssio'),
+('2', 'clem07', 'btssio'),
+('3', 'isab75', 'm2l'),
+('4', 'giroux54', 'm2l');
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `session`
 --
 
@@ -333,8 +358,9 @@ CREATE TABLE IF NOT EXISTS `utilisateur` (
 
 INSERT INTO `utilisateur` (`NO_UTILISATEUR`, `CODE_ASSOC`, `U_NOM`, `U_PRENOM`, `U_ADRESSE`, `U_CP`, `U_VILLE`, `U_EMAIL`, `U_STATUT`, `U_FONCTION`, `NBFORMSUIVIES`) VALUES
 ('1', '01', 'VITE', 'Nicolas', '38 Avenue Augustin Labouilhe', '31650', 'Saint Orens', 'nicolas.vite@hotmail.com', 'B', 'Étudiant', 7),
-('02', '02', 'VETTARD', 'Clément', '18 rue Arnaud', '31000', 'Toulouse', 'clementvettard@gmail.fr', 'S', 'Étudiant', 0),
-('3', '01', 'RICAUD', 'Isabelle', '54 avenue des oiseaux', '31650', 'St orens', 'iricaud3@gmail.com', 'B', 'Prof', 0);
+('2', '02', 'VETTARD', 'Clément', '18 rue Arnaud', '31000', 'Toulouse', 'clementvettard@gmail.fr', 'S', 'Étudiant', 0),
+('3', '01', 'RICAUD', 'Isabelle', '54 avenue des oiseaux', '31650', 'St orens', 'iricaud3@gmail.com', 'B', 'Prof', 0),
+('4', '1', 'GIROUX', 'Françoise', '28 rue Merly', '54000', 'Nancy', 'giroux.françoise@gmail.com', 'A', 'Secretaire', 0);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
