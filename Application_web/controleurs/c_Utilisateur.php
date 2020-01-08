@@ -50,10 +50,22 @@ switch($action)
 		break;
 	}
 
-	case 'inscriptionOK':
+	case 'sinscrire':
 	{
 		$_SESSION['session'] = $_POST['lasession'];
-		$pdo->checkNbFormSuiviesInscription($_SESSION['typeuti']['U_STATUT'], $_SESSION['dom'], $_SESSION['form'], $_SESSION['session']);
+
+		$verif_inscription = $pdo->verifInscription($_SESSION['logged']);
+		if($verif_inscription=="yes" && $verif_inscription != $_SESSION['dom'])
+		{
+			$pdo->sinscrire($_SESSION['logged'],$_SESSION['dom'], $_SESSION['form'], $_SESSION['session']);
+			$message = "Inscription pour cette formation réussit !";
+		}
+		else
+		{
+			$message = "Vous êtes déjà inscrit à 3 formations ou dont au moins 2 du même domaine !";
+		}
+		include("vues/v_message.php");
+
 		break;
 	}
 }

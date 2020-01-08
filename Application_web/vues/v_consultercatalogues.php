@@ -1,6 +1,6 @@
 <!-- VUE POUR AFFICHER LES SESSIONS DES FORMATIONS DES DOMAINES -->
 <ul id="categories">
-<form action="index.php?uc=Utilisateur&action=inscriptionOK" method="POST">
+<form action="index.php?uc=Utilisateur&action=sinscrire" method="POST">
 <!-- Affichage infos formation -->
 Informations sur la formation sélectionnée :
 <table border='1'>
@@ -61,21 +61,10 @@ else
 
         echo"<option value=$idsession>$libsession</option>";
     }
-    $date_now = date("m-d");
-
-    if ($date_now > '09-01')
-    {
-        echo '<input type="submit" value="Inscription">';
-    }
-    else
-    {
-        echo "Inscription non ouverte. Ouverture le 1er septembre.";
-    }
-
-
+    echo "</select>
+          <input type='submit' value='Inscription'>";
 }
 ?>
-</select>
 
 </form>
 </ul>

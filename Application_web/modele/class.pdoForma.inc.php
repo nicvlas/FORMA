@@ -89,7 +89,52 @@ class PdoForma
 		$res = PdoForma::$monPdo->exec($req) or die ('Erreur de mise à jour !');
 	}
 
+	public function sinscrire($no_util, $cod_dom, $cod_form, $cod_sess)
+	{
+		$today = getdate();
+		$year = $today['year'];
+		$req = "INSERT INTO inscrits VALUES ($no_util,$cod_dom,$cod_form,$cod_sess,'ENR',$year)";
+		$exec = PdoForma::$monPdo->exec($req);
+	}
+
+	public function verifInscription($no_util)
+	{
+		$ok = "yes";
+
+		//recup nb formations auxquels est inscrit l'utilisateur $no_util 
+		$req = "SELECT count(*) as nb_form_suivi
+				FROM inscrits
+				WHERE NO_UTILISATEUR=$no_util";
+		$nb_total_form = PdoForma::$monPdo->query($req);
+		$nb_total_form = $nb_total_form->fetch();
+		$nb_total_form = $nb_total_form['nb_form_suivi'];
+
+		if($nb_total_form >= 3)
+		{
+			$ok = "no";
+		}
+
+		//recup nb formations par domaine auxquels est inscrit l'utilisateur $no_util 
+		$req = "SELECT NO_UTILISATEUR, CODE_DOM, count(CODE_DOM) as nb_form_par_domaine
+				FROM inscrits
+				WHERE NO_UTILISATEUR=$no_util
+				GROUP BY NO_UTILISATEUR, CODE_DOM";
+		$nb_form_par_dom = PdoForma::$monPdo->query($req);
+		$nb_form_par_dom = $nb_form_par_dom->fetchAll();
+		foreach($nb_form_par_dom as $par_domaine)
+		{
+			if($par_domaine['nb_form_par_domaine']>=2)
+			{
+				$ok = $par_domaine['CODE_DOM'];
+			}
+		}
+
+		return $ok;
+	}
+
 	//vérifie combien l'utilisateur a suivi de form et inscrit ou pas l'utilisateur selon les critères de faisabilité
+	//fonction écrit par Nico
+	//Clément : "Cette fonction me parait trop complexe, je doute de sa réelle utilité. 'Keep it simple bro!'."
 	public function checkNbFormSuiviesInscription($idutil, $cd, $cf, $cs)
 	{
 		//check nb formations suivies
