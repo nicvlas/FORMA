@@ -47,6 +47,32 @@ switch($action)
         include("vues/v_message.php");
         header('Location:index.php');
         break;
-    }        
+    }
+    case 'pagecreercompte':
+    {
+        include("vues/v_creationcompte.php");
+        break;
+    }
+    case 'creercompte':
+    {
+        $prenom = $_POST['util_prenom'];
+        $nom = $_POST['util_nom'];
+        $mail = $_POST['util_mail'];
+        $adresse = $_POST['util_adresse'];
+        $cp = $_POST['util_cp'];
+        $ville = $_POST['util_ville'];
+        $association = $_POST['util_assoc'];
+        $fonction = $_POST['util_fonction'];
+        $statut = $_POST['util_statut'];
+
+        $util_id = $pdo->creerCompte($prenom,$nom,$mail,$adresse,$cp,$ville,$association,$fonction,$statut);
+        $identifiantConnexion = $pdo->getIdentifiantConnexion($util_id);
+
+        $message = "Vous venez de créer votre compte M2L, Bravo !<br>
+                    Votre login : $identifiantConnexion et votre mot de passe : $identifiantConnexion";
+        include("vues/v_message.php");
+        include("vues/v_connexion.php");
+        break;
+    }
 }
 ?>

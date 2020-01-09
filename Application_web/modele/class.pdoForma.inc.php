@@ -89,6 +89,7 @@ class PdoForma
 		$res = PdoForma::$monPdo->exec($req) or die ('Erreur de mise à jour !');
 	}
 
+	//clement
 	public function sinscrire($no_util, $cod_dom, $cod_form, $cod_sess)
 	{
 		$today = getdate();
@@ -97,6 +98,7 @@ class PdoForma
 		$exec = PdoForma::$monPdo->exec($req);
 	}
 
+	//clement
 	public function verifInscription($no_util)
 	{
 		$ok = "yes";
@@ -324,6 +326,7 @@ class PdoForma
 		return $success;
 	}
 
+	//clement
 	public function getNumUtil($login)
 	{
 		$req = "SELECT id_util
@@ -336,16 +339,48 @@ class PdoForma
 		return $numUtil;
 	}
 
+	//clement
 	public function getTypeUtil($numUtil)
 	{
-		$req = "SELECT U_STATUT
+		$req = "SELECT U_FONCTION
 				FROM utilisateur
 				WHERE NO_UTILISATEUR='$numUtil';";
 		$res = PdoForma::$monPdo->query($req);
 		$ligne = $res->fetch();
-		$typeUtil = $ligne['U_STATUT'];
+		$typeUtil = $ligne['U_FONCTION'];
 		
 		return $typeUtil;
+	}
+
+	//clement
+	public function getNoUtilMax()
+	{
+		$req = "SELECT MAX(NO_UTILISATEUR) as max
+				FROM utilisateur";
+		$res = PdoForma::$monPdo->query($req) ;
+		$ligne = $res->fetch();
+		return $ligne['max'];
+	}
+	//clement
+	public function creerCompte($prenom,$nom,$mail,$adresse,$cp,$ville,$association,$fonction,$statut)
+	{	
+		$id = PdoForma::getNoUtilMax();
+		$id = $id+1;
+		$req = "INSERT INTO utilisateur (NO_UTILISATEUR, CODE_ASSOC, U_NOM, U_PRENOM, U_EMAIL, U_ADRESSE, U_CP, U_VILLE, U_FONCTION, U_STATUT, NBFORMSUIVIES)
+				VALUES ('$id','$association','$nom','$prenom','$mail','$adresse','$cp','$ville','$fonction','$statut','0')";
+		PdoForma::$monPdo->exec($req);
+		return $id;
+	}
+	//clement
+	public function getIdentifiantConnexion($util_id)
+	{
+		$req = "SELECT login
+				FROM login
+				WHERE id_util='$util_id'";
+		$res = PdoForma::$monPdo->query($req);
+		$ligne =$res->fetch();
+		$idpswd=$ligne['login'];
+		return $idpswd;
 	}
 }
 ?>

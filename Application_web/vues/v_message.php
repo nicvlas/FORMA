@@ -1,5 +1,5 @@
 <div class="container">
-    <div class="jumbotron custom-jumbo">
+    <div class="jumbotron custom-jumbo bg-light">
         <p>
             <?php
                 echo $message;

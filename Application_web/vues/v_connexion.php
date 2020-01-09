@@ -5,18 +5,19 @@
           <div class="card-body">
             <h3 class="card-title text-dark text-center">Connexion</h3>
             <form class="form-signin" action="index.php?uc=connexion&action=authentification" method="post">
-
               <div class="form-label-group">
-                <input type="text" name="identifiant" class="form-control" placeholder="Identifiant" required autofocus>
+                <input type="text" name="identifiant" id="inputID" class="form-control" placeholder="Identifiant" required autofocus>
+                <label for="inputID">Identifiant</label>
               </div>
                 <br>
               <div class="form-label-group">
-                <input type="password" name="mdp" class="form-control" placeholder="Mot de passe" required>
+                <input type="password" name="mdp" id="inputmdp" class="form-control" placeholder="Mot de passe" required>
+                <label for="inputmdp">Mot de passe</label>
               </div>
                 <br>
               <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit"><i class="fa fa-unlock"></i> Connexion</button>
               <hr class="my-4">
-              <button class="btn btn-lg btn-danger btn-block text-uppercase" type="button" href=""><i class="fa fa-file-alt"></i> Créer un compte</button>
+              <a class="btn btn-lg btn-danger btn-block text-uppercase" type="button" href="index.php?uc=connexion&action=pagecreercompte"><i class="fa fa-file-alt"></i> Créer un compte</a>
             </form>
           </div>
         </div>
