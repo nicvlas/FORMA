@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  127.0.0.1
--- Généré le :  Jeu 09 Janvier 2020 à 12:50
+-- Généré le :  Jeu 09 Janvier 2020 à 18:33
 -- Version du serveur :  5.6.15-log
 -- Version de PHP :  5.5.8
 
@@ -19,6 +19,16 @@ SET time_zone = "+00:00";
 --
 -- Base de données :  `bdd_m2l`
 --
+
+DELIMITER $$
+--
+-- Procédures
+--
+CREATE DEFINER=`root`@`localhost` PROCEDURE `createLogin`(IN `no_util` CHAR(3), IN `login_util` VARCHAR(32), IN `pswd_util` VARCHAR(32))
+    MODIFIES SQL DATA
+INSERT INTO login VALUES (no_util, login_util, pswd_util)$$
+
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -110,9 +120,9 @@ CREATE TABLE IF NOT EXISTS `competences_de_domaine` (
 
 INSERT INTO `competences_de_domaine` (`CODE_COMP`, `CODE_DOM`) VALUES
 ('1', '1'),
-('1', '2'),
 ('2', '1'),
-('3', '1');
+('3', '1'),
+('1', '2');
 
 -- --------------------------------------------------------
 
@@ -163,14 +173,14 @@ CREATE TABLE IF NOT EXISTS `formation` (
 --
 
 INSERT INTO `formation` (`CODE_DOM`, `CODE_FORM`, `F_LIBELLE`, `OBJECTIFS`, `CONTENU`, `PRIX`, `SUPPORT_INCLUS`, `DATE_LIMITE`, `NB_PLACES`, `TYPE`) VALUES
-('2', '3', 'Power point niveau 2', 'Parfaire ses connaissances sur PowerPoint', '1. Amélioration d''une présentation*\r\n2. L''affichage\r\n3. Personnalisation des diapositives', '55.00', 'O', '2019-10-30', 19, 'T'),
-('4', '2', 'Mise en pratique et 1er secours', 'Savoir faire les 1er gestes', 'Apprentissage secourisme', '10.00', 'O', '2020-03-18', 9, 'T'),
 ('1', '1', 'Soirée d''information convention ', 'Savoir des choses sur le sport', 'Table ronde', '20.00', 'N', '2020-03-20', 16, 'T'),
+('1', '10', 'Formation excel', 'Savoir calculer', 'cellules', '10.00', 'N', '2020-02-15', 16, 'T'),
+('1', '3', 'Comptabilité', 'Savoir gérer son argent', NULL, NULL, NULL, NULL, NULL, NULL),
+('2', '3', 'Power point niveau 2', 'Parfaire ses connaissances sur PowerPoint', '1. Amélioration d''une présentation*\r\n2. L''affichage\r\n3. Personnalisation des diapositives', '55.00', 'O', '2019-10-30', 19, 'T'),
 ('2', '4', 'Outlook Niveau 1', 'Savoir envoyer un mail', 'Envoyer un mail', '45.00', 'O', '2020-01-18', 58, 'T'),
 ('4', '1', 'Manifestion éco responsable', 'Faire changer les choses', 'Manif', '5.00', 'N', '2019-11-27', 110, 'S'),
-('5', '1', 'Conduite de réunion', 'Savoir se tenir', 'Animation', '12.00', 'N', '2020-02-01', 26, 'S'),
-('1', '3', 'Comptabilité', 'Savoir gérer son argent', NULL, NULL, NULL, NULL, NULL, NULL),
-('1', '10', 'Formation excel', 'Savoir calculer', 'cellules', '10.00', 'N', '2020-02-15', 16, 'T');
+('4', '2', 'Mise en pratique et 1er secours', 'Savoir faire les 1er gestes', 'Apprentissage secourisme', '10.00', 'O', '2020-03-18', 9, 'T'),
+('5', '1', 'Conduite de réunion', 'Savoir se tenir', 'Animation', '12.00', 'N', '2020-02-01', 26, 'S');
 
 -- --------------------------------------------------------
 
@@ -195,9 +205,9 @@ CREATE TABLE IF NOT EXISTS `inscrits` (
 --
 
 INSERT INTO `inscrits` (`NO_UTILISATEUR`, `CODE_DOM`, `CODE_FORM`, `CODE_SESSION`, `ETAT`, `ANNEE`) VALUES
-('2', '2', '3', '1', 'ENR', 2020),
+('2', '1', '1', '1', 'ENR', 2020),
 ('2', '1', '10', '1', 'ENR', 2020),
-('2', '1', '1', '1', 'ENR', 2020);
+('2', '2', '3', '1', 'ENR', 2020);
 
 -- --------------------------------------------------------
 
@@ -294,7 +304,8 @@ INSERT INTO `login` (`id_util`, `login`, `password`) VALUES
 ('1', 'nico31', 'btssio'),
 ('2', 'clem07', 'btssio'),
 ('3', 'isab75', 'm2l'),
-('4', 'giroux54', 'm2l');
+('4', 'giroux54', 'm2l'),
+('5', 'jean07', 'jean07');
 
 -- --------------------------------------------------------
 
@@ -323,11 +334,11 @@ CREATE TABLE IF NOT EXISTS `session` (
 INSERT INTO `session` (`CODE_DOM`, `CODE_FORM`, `CODE_SESSION`, `CODE_LIEU`, `S_LIBELLE`, `H_DEBUT`, `H_FIN`, `S_DATE`) VALUES
 ('1', '1', '1', '1', 'Session 1', '19:00:00', '21:00:00', '2019-12-16'),
 ('1', '10', '1', '1', 'Session 1', '12:00:00', '14:00:00', '2020-02-16'),
-('4', '2', '1', '1', 'Session 1', '18:00:00', '20:00:00', '2020-01-18'),
-('4', '1', '1', '1', 'Session 1', '09:00:00', '17:00:00', '2020-05-30'),
 ('2', '2', '1', '1', 'Session 1', '10:00:00', '13:00:00', '2020-02-25'),
-('5', '1', '1', '2', 'Session 1', '14:00:00', '15:00:00', '2020-03-15'),
-('2', '3', '1', '1', 'Session 1', '20:00:00', '22:00:00', '2020-12-10');
+('2', '3', '1', '1', 'Session 1', '20:00:00', '22:00:00', '2020-12-10'),
+('4', '1', '1', '1', 'Session 1', '09:00:00', '17:00:00', '2020-05-30'),
+('4', '2', '1', '1', 'Session 1', '18:00:00', '20:00:00', '2020-01-18'),
+('5', '1', '1', '2', 'Session 1', '14:00:00', '15:00:00', '2020-03-15');
 
 -- --------------------------------------------------------
 
@@ -344,8 +355,8 @@ CREATE TABLE IF NOT EXISTS `utilisateur` (
   `U_CP` char(5) DEFAULT NULL,
   `U_VILLE` varchar(32) DEFAULT NULL,
   `U_EMAIL` varchar(32) DEFAULT NULL,
-  `U_STATUT` varchar(16) DEFAULT NULL,
   `U_FONCTION` varchar(16) DEFAULT NULL,
+  `U_STATUT` varchar(16) DEFAULT NULL,
   `NBFORMSUIVIES` int(1) NOT NULL,
   PRIMARY KEY (`NO_UTILISATEUR`),
   KEY `I_FK_UTILISATEUR_ASSOCIATION` (`CODE_ASSOC`)
@@ -355,11 +366,32 @@ CREATE TABLE IF NOT EXISTS `utilisateur` (
 -- Contenu de la table `utilisateur`
 --
 
-INSERT INTO `utilisateur` (`NO_UTILISATEUR`, `CODE_ASSOC`, `U_NOM`, `U_PRENOM`, `U_ADRESSE`, `U_CP`, `U_VILLE`, `U_EMAIL`, `U_STATUT`, `U_FONCTION`, `NBFORMSUIVIES`) VALUES
-('1', '01', 'VITE', 'Nicolas', '38 Avenue Augustin Labouilhe', '31650', 'Saint Orens', 'nicolas.vite@hotmail.com', 'B', 'Étudiant', 7),
+INSERT INTO `utilisateur` (`NO_UTILISATEUR`, `CODE_ASSOC`, `U_NOM`, `U_PRENOM`, `U_ADRESSE`, `U_CP`, `U_VILLE`, `U_EMAIL`, `U_FONCTION`, `U_STATUT`, `NBFORMSUIVIES`) VALUES
+('1', '01', 'VITE', 'Nicolas', '38 Avenue Augustin Labouilhe', '31650', 'Saint Orens', 'nicolas.vite@hotmail.com', 'B', 'etudiant', 7),
 ('2', '02', 'VETTARD', 'Clément', '18 rue Arnaud', '31000', 'Toulouse', 'clementvettard@gmail.fr', 'S', 'Étudiant', 0),
 ('3', '01', 'RICAUD', 'Isabelle', '54 avenue des oiseaux', '31650', 'St orens', 'iricaud3@gmail.com', 'B', 'Prof', 0),
-('4', '1', 'GIROUX', 'Françoise', '28 rue Merly', '54000', 'Nancy', 'giroux.françoise@gmail.com', 'A', 'Secretaire', 0);
+('4', '1', 'GIROUX', 'Françoise', '28 rue Merly', '54000', 'Nancy', 'giroux.françoise@gmail.com', 'A', 'Secretaire', 0),
+('5', '02', 'eude', 'jean', 'les mimosas', '07000', 'jaujac', 'jeaneude@gmail.com', 'B', 'etudiant', 0);
+
+--
+-- Déclencheurs `utilisateur`
+--
+DROP TRIGGER IF EXISTS `insertLogin`;
+DELIMITER //
+CREATE TRIGGER `insertLogin` AFTER INSERT ON `utilisateur`
+ FOR EACH ROW call createLogin(NEW.NO_UTILISATEUR,CONCAT(SUBSTRING(NEW.U_PRENOM,1,4),SUBSTRING(NEW.U_CP,1,2)),CONCAT(SUBSTRING(NEW.U_PRENOM,1,4),SUBSTRING(NEW.U_CP,1,2)))
+//
+DELIMITER ;
+
+--
+-- Contraintes pour les tables exportées
+--
+
+--
+-- Contraintes pour la table `login`
+--
+ALTER TABLE `login`
+  ADD CONSTRAINT `FK_id_util` FOREIGN KEY (`id_util`) REFERENCES `utilisateur` (`NO_UTILISATEUR`);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
