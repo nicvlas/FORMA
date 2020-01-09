@@ -382,5 +382,18 @@ class PdoForma
 		$idpswd=$ligne['login'];
 		return $idpswd;
 	}
+
+	//clement
+	public function getMesFormations($id_util)
+	{
+		$req = "SELECT F_LIBELLE, OBJECTIFS, CONTENU, PRIX, SUPPORT_INCLUS, DATE_LIMITE, NB_PLACES
+				FROM inscrits i, formation f
+				WHERE i.CODE_FORM=f.CODE_FORM
+				AND i.CODE_DOM=f.CODE_DOM
+				AND i.NO_UTILISATEUR='$id_util'";
+		$res = PdoForma::$monPdo->query($req);
+		$mesFormations = $res->fetchAll();
+		return $mesFormations;
+	}
 }
 ?>

@@ -68,6 +68,12 @@ switch($action)
 
 		break;
 	}
+	case 'voirMesFormations':
+	{
+		$mesFormations = $pdo->getMesFormations($_SESSION['logged']);
+		include("vues/v_mesformations.php");
+		break;
+	}
 }
 ?>
 </div>
